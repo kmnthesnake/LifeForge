@@ -1,0 +1,48 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.ap_
+*.aab
+
+# Local configuration file
+local.properties
+
+# Log/OS files
+*.log
+.DS_Store
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+.gradle
+out/
+local.properties
+
+# Gradle
+.gradle/
+build/
+
+# Generated files
+bin/
+gen/
+out/
+*.swp
+
+# Keystore files
+*.jks
+*.keystore
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
+
+# Version control
+.git/
+.gitignore
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
