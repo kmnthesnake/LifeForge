@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <domain-config>
+        <domain name="database" />
+        <domain name="sharedpref" />
+    </domain-config>
+</data-extraction-rules>

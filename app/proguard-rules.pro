@@ -1,0 +1,9 @@
+-keep class com.lifeforge.app.** { *; }
+-keepclassmembers class com.lifeforge.app.** { *; }
+-keep class androidx.compose.** { *; }
+-keep interface androidx.compose.** { *; }
+-keep class androidx.room.** { *; }
+-keepclassmembers class androidx.room.** { *; }
+-keep class com.google.dagger.** { *; }
+-dontwarn com.lifeforge.app.**
+-dontwarn androidx.compose.**
