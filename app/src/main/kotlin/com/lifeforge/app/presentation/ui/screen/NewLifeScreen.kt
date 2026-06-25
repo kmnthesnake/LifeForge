@@ -46,12 +46,20 @@ fun NewLifeScreen(
         )
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Character Creation Screen")
-            Text("(To be implemented)")
+            Button(
+                onClick = onGameplayClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp)
+            ) {
+                Text("Start New Life")
+            }
         }
     }
 }

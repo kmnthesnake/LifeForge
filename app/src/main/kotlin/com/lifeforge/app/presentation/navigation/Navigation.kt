@@ -8,6 +8,7 @@ import com.lifeforge.app.presentation.ui.screen.HomeScreen
 import com.lifeforge.app.presentation.ui.screen.NewLifeScreen
 import com.lifeforge.app.presentation.ui.screen.ContinueScreen
 import com.lifeforge.app.presentation.ui.screen.SettingsScreen
+import com.lifeforge.app.presentation.ui.screen.GameplayScreen
 
 @Composable
 fun LifeForgeNavHost() {
@@ -43,7 +44,9 @@ fun LifeForgeNavHost() {
             )
         }
         composable(Route.GAMEPLAY) {
-            // Gameplay screen placeholder
+            GameplayScreen(
+                onBackClick = { navController.popBackStack() }
+            )
         }
     }
 }

@@ -8,4 +8,5 @@
     <string name="character_creation">Character Creation</string>
     <string name="gameplay">Gameplay</string>
     <string name="back">Back</string>
+    <string name="age_button">Age +1</string>
 </resources>
