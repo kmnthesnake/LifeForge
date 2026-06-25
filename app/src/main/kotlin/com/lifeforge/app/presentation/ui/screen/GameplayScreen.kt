@@ -14,6 +14,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -21,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -41,8 +43,7 @@ fun GameplayScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     if (uiState.character == null) {
-        // Start a new game when entering
-        androidx.compose.runtime.LaunchedEffect(Unit) {
+        LaunchedEffect(Unit) {
             viewModel.startNewGame()
         }
     }
@@ -55,7 +56,7 @@ fun GameplayScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Header with back button and character name
+            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -127,32 +128,37 @@ fun GameplayScreen(
                     StatRow(
                         label = "Health",
                         value = character.health,
+                        delta = uiState.statChanges?.healthDelta,
                         color = MaterialTheme.colorScheme.primary
                     )
                     StatRow(
                         label = "Happiness",
                         value = character.happiness,
+                        delta = uiState.statChanges?.happinessDelta,
                         color = MaterialTheme.colorScheme.primary
                     )
                     StatRow(
                         label = "Intelligence",
                         value = character.intelligence,
+                        delta = uiState.statChanges?.intelligenceDelta,
                         color = MaterialTheme.colorScheme.primary
                     )
                     StatRow(
                         label = "Looks",
                         value = character.looks,
+                        delta = uiState.statChanges?.looksDelta,
                         color = MaterialTheme.colorScheme.primary
                     )
                     StatRow(
                         label = "Fitness",
                         value = character.fitness,
+                        delta = uiState.statChanges?.fitnessDelta,
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
 
-            // Age Up Button
+            // Age +1 Button
             Button(
                 onClick = { viewModel.ageUp() },
                 modifier = Modifier
@@ -160,6 +166,45 @@ fun GameplayScreen(
                     .padding(vertical = 8.dp)
             ) {
                 Text(stringResource(id = R.string.age_button))
+            }
+
+            // Recent Events Section
+            if (uiState.recentEvents.isNotEmpty()) {
+                Divider()
+                Text(
+                    text = "Recent Events",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    uiState.recentEvents.forEach { event ->
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer
+                            )
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    text = event.title,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                Text(
+                                    text = event.description,
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -206,7 +251,6 @@ fun GameplayScreen(
             )
         }
     } ?: run {
-        // Loading state
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -221,6 +265,7 @@ fun GameplayScreen(
 private fun StatRow(
     label: String,
     value: Int,
+    delta: Int?,
     color: androidx.compose.ui.graphics.Color
 ) {
     Row(
@@ -242,12 +287,23 @@ private fun StatRow(
                 modifier = Modifier.weight(1f),
                 color = color
             )
-            Text(
-                text = "$value",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
+            Column(
+                horizontalAlignment = Alignment.End,
                 modifier = Modifier.padding(end = 4.dp)
-            )
+            ) {
+                Text(
+                    text = "$value",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+                if (delta != null && delta != 0) {
+                    Text(
+                        text = if (delta > 0) "+$delta" else "$delta",
+                        fontSize = 10.sp,
+                        color = if (delta > 0) androidx.compose.material3.MaterialTheme.colorScheme.tertiary else androidx.compose.material3.MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         }
     }
 }

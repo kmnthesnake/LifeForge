@@ -3,9 +3,11 @@ package com.lifeforge.app.presentation.ui.screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -21,7 +23,9 @@ import com.lifeforge.app.R
 @Composable
 fun ContinueScreen(
     onBackClick: () -> Unit,
-    onGameplayClick: () -> Unit
+    onGameplayClick: () -> Unit,
+    hasSavedGame: Boolean,
+    onLoadClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -48,8 +52,18 @@ fun ContinueScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Load Game Screen")
-            Text("(To be implemented)")
+            if (hasSavedGame) {
+                Button(
+                    onClick = onLoadClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
+                ) {
+                    Text("Load Saved Game")
+                }
+            } else {
+                Text("No saved game.")
+            }
         }
     }
 }
