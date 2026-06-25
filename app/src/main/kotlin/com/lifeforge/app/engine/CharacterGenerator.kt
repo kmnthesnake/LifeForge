@@ -2,6 +2,7 @@ package com.lifeforge.app.engine
 
 import com.lifeforge.app.domain.model.BodyType
 import com.lifeforge.app.domain.model.Character
+import com.lifeforge.app.domain.model.EducationStage
 import com.lifeforge.app.domain.model.Gender
 import kotlin.random.Random
 
@@ -76,6 +77,11 @@ object CharacterGenerator {
         val fitness = Random.nextInt(30, 101)         // 30-100
         val money = Random.nextLong(0, 1001)          // 0-1000
 
+        // Generate family
+        val motherName = FamilyGenerator.generateMother(lastName)
+        val fatherName = FamilyGenerator.generateFather(lastName)
+        val siblings = Random.nextInt(0, 5)            // 0-4 siblings
+
         return Character(
             firstName = firstName,
             lastName = lastName,
@@ -90,7 +96,13 @@ object CharacterGenerator {
             looks = looks,
             fitness = fitness,
             money = money,
-            alive = true
+            alive = true,
+            motherName = motherName,
+            fatherName = fatherName,
+            siblings = siblings,
+            relationshipMother = Random.nextInt(60, 100),
+            relationshipFather = Random.nextInt(60, 100),
+            educationStage = EducationStage.BABY
         )
     }
 }

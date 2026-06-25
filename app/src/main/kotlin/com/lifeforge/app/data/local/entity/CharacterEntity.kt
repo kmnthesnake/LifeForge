@@ -22,6 +22,14 @@ data class CharacterEntity(
     val fitness: Int,
     val money: Long,
     val alive: Boolean,
+    // Family
+    val motherName: String,
+    val fatherName: String,
+    val siblings: Int,
+    val relationshipMother: Int,
+    val relationshipFather: Int,
+    // Education
+    val educationStage: String,
     val createdAt: Long,
     val updatedAt: Long
 )

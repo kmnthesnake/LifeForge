@@ -3,6 +3,7 @@ package com.lifeforge.app.data.mapper
 import com.lifeforge.app.data.local.entity.CharacterEntity
 import com.lifeforge.app.domain.model.BodyType
 import com.lifeforge.app.domain.model.Character
+import com.lifeforge.app.domain.model.EducationStage
 import com.lifeforge.app.domain.model.Gender
 
 fun Character.toEntity(): CharacterEntity = CharacterEntity(
@@ -21,6 +22,12 @@ fun Character.toEntity(): CharacterEntity = CharacterEntity(
     fitness = fitness,
     money = money,
     alive = alive,
+    motherName = motherName,
+    fatherName = fatherName,
+    siblings = siblings,
+    relationshipMother = relationshipMother,
+    relationshipFather = relationshipFather,
+    educationStage = educationStage.name,
     createdAt = createdAt,
     updatedAt = updatedAt
 )
@@ -41,6 +48,16 @@ fun CharacterEntity.toDomain(): Character = Character(
     fitness = fitness,
     money = money,
     alive = alive,
+    motherName = motherName,
+    fatherName = fatherName,
+    siblings = siblings,
+    relationshipMother = relationshipMother,
+    relationshipFather = relationshipFather,
+    educationStage = try {
+        EducationStage.valueOf(educationStage)
+    } catch (e: IllegalArgumentException) {
+        EducationStage.BABY  // Default for old saves
+    },
     createdAt = createdAt,
     updatedAt = updatedAt
 )

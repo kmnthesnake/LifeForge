@@ -3,6 +3,7 @@ package com.lifeforge.app.data.local.di
 import android.content.Context
 import androidx.room.Room
 import com.lifeforge.app.data.local.database.LifeForgeDatabase
+import com.lifeforge.app.data.local.database.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object DatabaseModule {
         context,
         LifeForgeDatabase::class.java,
         "lifeforge_database"
-    ).build()
+    ).addMigrations(MIGRATION_1_2).build()
 
     @Singleton
     @Provides

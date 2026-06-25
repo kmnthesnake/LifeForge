@@ -111,6 +111,59 @@ fun GameplayScreen(
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    Text(
+                        text = "Education: ${character.educationStage.name}",
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+
+            // Family Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = "Family",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = "Mother: ${character.motherName}",
+                        fontSize = 12.sp
+                    )
+                    StatRow(
+                        label = "Mother Bond",
+                        value = character.relationshipMother,
+                        delta = uiState.statChanges?.let { it.healthDelta },  // Placeholder
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = "Father: ${character.fatherName}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                    StatRow(
+                        label = "Father Bond",
+                        value = character.relationshipFather,
+                        delta = uiState.statChanges?.let { it.healthDelta },  // Placeholder
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    if (character.siblings > 0) {
+                        Text(
+                            text = "Siblings: ${character.siblings}",
+                            fontSize = 12.sp,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
                 }
             }
 
@@ -184,7 +237,7 @@ fun GameplayScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer
                             )
                         ) {
                             Column(
@@ -199,7 +252,7 @@ fun GameplayScreen(
                                 Text(
                                     text = event.description,
                                     fontSize = 11.sp,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer
                                 )
                             }
                         }
